@@ -98,7 +98,7 @@ def commit_chunks(hashes, since, until, config):
     """
     git_command = list(filter(None,
                          ["git", "log", "--reverse",
-                          "--pretty='---%n%ct|%cd|%H|%aN|%aE'",
+                          "--pretty=---%n%ct|%cd|%H|%aN|%aE",
                           "--stat=100000,8192"] +
                          (["-w"] if config.ignore_space else []) +
                          [since, until, "--date=short"] +
@@ -109,7 +109,8 @@ def commit_chunks(hashes, since, until, config):
         print(git_command)
 
     git_log_r = subprocess.Popen(git_command,
-                                 stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+                                 stdout=subprocess.PIPE, 
+                                 stderr=subprocess.PIPE)
     lines = git_log_r.stdout.readlines()
     lines_stderr = git_log_r.stderr.readlines()
     git_log_r.wait()
@@ -123,6 +124,7 @@ def commit_chunks(hashes, since, until, config):
     chunks = [ list(g) for (k,g) in itertools.groupby(lines, key=lambda l: l==b'---\n') ]
     chunks = list(filter(lambda g: g[0] != b'---\n', chunks))
     return chunks
+
 
 
 def commit_message(hash):
