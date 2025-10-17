@@ -138,13 +138,19 @@ def is_acceptable_file_name(string):
     """
     search_for = string.strip()
     accepted = False
-    for regexp in __filters__[Filters.FILE_IN][0]:
-        try:
-            if fnmatch.fnmatch(search_for, regexp):
-                accepted = True
-                break
-        except:
-            raise InvalidRegExpError(_("Invalid regular expression specified"))
+    
+    # Si existe el filtro "**", aceptar TODOS los archivos
+    if "**" in __filters__[Filters.FILE_IN][0]:
+        accepted = True
+    else:
+        for regexp in __filters__[Filters.FILE_IN][0]:
+            try:
+                if fnmatch.fnmatch(search_for, regexp):
+                    accepted = True
+                    break
+            except:
+                raise InvalidRegExpError(_("Invalid regular expression specified"))
+    
     if not(accepted):
         return False
     for regexp in __filters__[Filters.FILE_OUT][0]:

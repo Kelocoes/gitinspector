@@ -43,21 +43,13 @@ localization.init()
 
 # The list of extensions that are analyzed when no filter is
 # specified for the files.
-DEFAULT_EXTENSIONS = ["*.java", "*.cs", "*.rb",
-                      "*.c",    "*.cc", "*.cpp", "*.css", ".cxx",
-                      "*.h",    "*.hh", "*.hpp", "*.html", ".hxx",
-                      "*.i",    "*.ii", "*.ipp", ".ixx",
-                      "*.rs",   "*.go",  "*.ml", "*.mli", "*.m",
-                      "*.js",   "*.php", "*.pl",  "*.pm", "*.py", "*.sh", "*.vb",
-                      "*.ts",   "*.tex",  "*.bib",
-                      "*.md",   "*.txt", "*.xml",
-                      "*.s",    "*.asm", "*.rkt",
-                      "*.l",    "*.y",
-                      "*.glsl", "*.sql",
-                      "*akefile", "README", "INSTALL",
-                     ]
+DEFAULT_EXTENSIONS = ["**"]
 
-DEFAULT_IGNORED = [ "node_modules/*", ".parcel-cache/*" ]
+# Archivos ignorados por defecto
+DEFAULT_IGNORED = ["package-lock.json", "package.json", "eslint.config.js", "index.html", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.svg",
+                ".gitignore", "tsconfig.app.json", "tsconfig.json", "tsconfig.node.json", "README.md",
+                "public/*", "public/**", ".husky/*", "vite.config.ts"
+                ]
 
 class StdoutWriter(io.StringIO):
     def __init__(self):
